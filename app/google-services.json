@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "770289356103",
+    "firebase_url": "https://bloodpressuretracker-470e1.firebaseio.com",
+    "project_id": "bloodpressuretracker-470e1",
+    "storage_bucket": "bloodpressuretracker-470e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770289356103:android:cbd838b5c388d0a7cc5062",
+        "android_client_info": {
+          "package_name": "ca.bcit.a3717assignment2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770289356103-dresvtebhdirjjpic8ucoat0tfcmro3s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.bcit.a3717assignment2",
+            "certificate_hash": "c90f9fd5b3493e03170a917e8263c8a9ddd2c0df"
+          }
+        },
+        {
+          "client_id": "770289356103-069ndjt4s6bsf22vnau5084n6qtfbch1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoA9k4ojjkixU0MDZYjcEtmKn4vrbZHU8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770289356103-069ndjt4s6bsf22vnau5084n6qtfbch1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
