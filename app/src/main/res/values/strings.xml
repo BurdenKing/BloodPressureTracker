@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">3717Assignment2</string>
+    <string name="app_name">Joe and Lawrence</string>
     <string name="hintUid">User ID</string>
     <string name="btnAddForm">Add</string>
+    <string name ="btnDelete">Delete</string>
     <string name="hintSR">Systolic Reading</string>
     <string name="hintDR">Diastolic Reading</string>
 </resources>

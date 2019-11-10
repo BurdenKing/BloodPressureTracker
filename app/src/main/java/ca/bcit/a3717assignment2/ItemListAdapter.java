@@ -37,8 +37,8 @@ public class ItemListAdapter extends ArrayAdapter<FormItems> {
         View listViewItem = inflater.inflate(R.layout.list_layout, null, true);
 
         TextView tvUserId = listViewItem.findViewById(R.id.textViewUserId);
-        TextView tvReadingDate= listViewItem.findViewById(R.id.textViewReadingDate);
-        TextView tvReadingTime = listViewItem.findViewById(R.id.textViewReadingDate);
+        TextView tvReadingDate= listViewItem.findViewById(R.id.tvReadingDate);
+        TextView tvReadingTime = listViewItem.findViewById(R.id.tvReadingTime);
         TextView tvSystolicReading = listViewItem.findViewById(R.id.textViewSystolicReading);
         TextView tvDiastolicReading = listViewItem.findViewById(R.id.textViewDiastolicReading);
         TextView tvCondition = listViewItem.findViewById((R.id.textViewCondition));
@@ -47,11 +47,11 @@ public class ItemListAdapter extends ArrayAdapter<FormItems> {
 
         FormItems item = itemList.get(position);
         tvUserId.setText(item.getUserId());
-        tvReadingDate.setText(item.getReadingDate().toString());
-        tvReadingTime.setText(item.getReadingTime().toString());
-        tvSystolicReading.setText(Double.toString(item.getSystolicReading()));
-        tvDiastolicReading.setText(Double.toString(item.getDiastolicReading()));
-        tvCondition.setText(item.getCondition());
+        tvReadingDate.setText(item.getDateReading());
+        tvReadingTime.setText(item.getTimeReading());
+        tvSystolicReading.setText(item.getSystolicReading());
+        tvDiastolicReading.setText(item.getDiastolicReading());
+        tvCondition.setText(item.getCond());
         return listViewItem;
     }
 
