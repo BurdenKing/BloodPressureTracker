@@ -204,10 +204,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if(Double.parseDouble(sysRead) >= 180 || Double.parseDouble(diaRead) >= 120) {
-            Toast.makeText(this, "WARNING YOU ARE FAT", Toast.LENGTH_LONG).show();
-        }
-
 
         String id = databaseBloodPressureTracker.push().getKey();
         FormItems item = new FormItems(id, userId, date, time, sysRead, diaRead);
@@ -218,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(Object o) {
 
                 if(Double.parseDouble(sysRead) >= 180 || Double.parseDouble(diaRead) >= 120) {
-                    Toast.makeText(MainActivity.this, "WARNING YOU ARE FAT", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "WARNING: Hypertensive Crisis!", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(MainActivity.this, "item added", Toast.LENGTH_LONG).show();
 
