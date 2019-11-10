@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Joe and Lawrence</string>
-    <string name="hintUid">User ID</string>
+    <string name="hintUser">User ID</string>
     <string name="btnAddForm">Add</string>
-    <string name ="btnDelete">Delete</string>
+    <string name="btnDelete">Delete</string>
     <string name="hintSR">Systolic Reading</string>
     <string name="hintDR">Diastolic Reading</string>
+
+    <string name="avg_condition">Average Condition</string>
+    <string name="avg_systolic">Systolic Readings</string>
+    <string name="avg_diastolic">Diastolic Reading</string>
+    <string name="avg_monthLabel">Month to date average readings</string>
 </resources>

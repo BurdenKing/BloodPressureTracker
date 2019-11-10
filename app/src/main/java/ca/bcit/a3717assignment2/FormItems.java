@@ -4,8 +4,6 @@ import java.util.Date;
 
 public class FormItems {
 
-
-
     private String id;
     private String userId;
     private String dateReading;
@@ -15,10 +13,12 @@ public class FormItems {
     private String condition;
 
     public String getDiastolicReading() {
+
         return diastolicReading;
     }
 
     public String getSystolicReading() {
+
         return systolicReading;
     }
 
@@ -31,64 +31,68 @@ public class FormItems {
     }
 
     public String getCondition() {
+
         return condition;
     }
 
     public void setCondition(String condition) {
+
         this.condition = condition;
     }
 
     public String getId() {
+
         return id;
     }
 
     public void setId(String id) {
+
         this.id = id;
     }
 
     public String getTimeReading() {
+
         return timeReading;
     }
 
     public void setTimeReading(String timeReading) {
+
         this.timeReading = timeReading;
     }
 
     public String getDateReading() {
+
         return dateReading;
     }
 
     public void setDateReading(String dateReading) {
+
         this.dateReading = dateReading;
     }
 
-
-
-
     public String getUserId() {
+
         return userId;
     }
 
     public void setUserId(String userId) {
+
         this.userId = userId;
     }
 
 
-
-
-
-
     public String getCond() {
+
         return condition;
     }
 
     public void setCond(String condition) {
+
         this.condition = condition;
     }
 
 
-    enum Cond
-    {
+    enum Cond {
         NORMAL("Normal"),
         ELEVATED("Elevated"),
         STAGE1("High Blood Pressure! (stage 1)"),
@@ -97,32 +101,32 @@ public class FormItems {
 
         public final String label;
 
-        Cond(String label){
+        Cond(String label) {
             this.label = label;
         }
     }
 
-    public void generateCond(){
+    public void generateCond() {
         double sr = Double.parseDouble(systolicReading);
         double dr = Double.parseDouble(diastolicReading);
-        if(sr >=180 || dr >=120){
+        if (sr >= 180 || dr >= 120) {
             this.condition = Cond.CRISIS.label;
-        }else if((sr >= 140 && sr < 180) || dr >=90){
+        } else if ((sr >= 140 && sr < 180) || dr >= 90) {
             this.condition = Cond.STAGE2.label;
-        }else if((sr >= 130 && sr <= 139) || (dr >= 80 && dr <= 89)){
+        } else if ((sr >= 130 && sr <= 139) || (dr >= 80 && dr <= 89)) {
             this.condition = Cond.STAGE1.label;
-        } else if((sr >= 120 && sr <= 129) && dr < 80){
+        } else if ((sr >= 120 && sr <= 129) && dr < 80) {
             this.condition = Cond.ELEVATED.label;
-        } else if(sr < 120 && dr < 80){
+        } else if (sr < 120 && dr < 80) {
             this.condition = Cond.NORMAL.label;
         }
     }
 
 
+    public FormItems() {
+    }
 
-    public FormItems(){}
-
-    public FormItems(String id, String uid, String date,String time, String sr, String dr, String cond){
+    public FormItems(String id, String uid, String date, String time, String sr, String dr, String cond) {
         this.id = id;
         this.userId = uid;
         this.dateReading = date;
@@ -132,7 +136,7 @@ public class FormItems {
         this.condition = cond;
     }
 
-    public FormItems(String id, String uid, String date,String time, String sr, String dr){
+    public FormItems(String id, String uid, String date, String time, String sr, String dr) {
         this.id = id;
         this.userId = uid;
         this.dateReading = date;

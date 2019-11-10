@@ -37,13 +37,11 @@ public class ItemListAdapter extends ArrayAdapter<FormItems> {
         View listViewItem = inflater.inflate(R.layout.list_layout, null, true);
 
         TextView tvUserId = listViewItem.findViewById(R.id.textViewUserId);
-        TextView tvReadingDate= listViewItem.findViewById(R.id.tvReadingDate);
-        TextView tvReadingTime = listViewItem.findViewById(R.id.tvReadingTime);
+        TextView tvReadingDate= listViewItem.findViewById(R.id.tvDate);
+        TextView tvReadingTime = listViewItem.findViewById(R.id.tvTime);
         TextView tvSystolicReading = listViewItem.findViewById(R.id.textViewSystolicReading);
         TextView tvDiastolicReading = listViewItem.findViewById(R.id.textViewDiastolicReading);
         TextView tvCondition = listViewItem.findViewById((R.id.textViewCondition));
-
-
 
         FormItems item = itemList.get(position);
         tvUserId.setText(item.getUserId());

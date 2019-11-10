@@ -4,15 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import android.graphics.Color;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,13 +27,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import ca.bcit.a3717assignment2.FormItems.Cond;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     EditText editDiastolicReading;
     TextView tvCondition;
     Button addRecord;
-
     ListView lvItems;
     List<FormItems> itemList;
 
@@ -76,12 +80,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         lvItems = findViewById(R.id.lvItems);
         itemList = new ArrayList<>();
 
         lvItems.setOnItemLongClickListener((parent, view, position, id) -> {
             FormItems item = itemList.get(position);
-            showUpdateDialog(item.getId(),
+            showUpdateDialog(
+                    item.getId(),
                     item.getUserId(),
                     item.getDateReading(),
                     item.getSystolicReading(),
@@ -89,10 +95,92 @@ public class MainActivity extends AppCompatActivity {
                     item.getSystolicReading(),
                     item.getCond());
 
-            return false;
+            return true;
+        });
+
+        //test
+        lvItems.setOnItemClickListener((parent, view, position, id) -> {
+            FormItems item = itemList.get(position);
+
+            Intent intent = new Intent();
+            intent.setClass(getApplicationContext(), AverageReading.class);
+
+            String currentMonth = getMonth(item.getDateReading());
+
+            intent.putExtra("date", currentMonth);
+            intent.putExtra("userID", item.getUserId());
+
+            intent.putExtra("totalSystolicReading", getTotalSystolicReading(item.getUserId(), currentMonth));
+            intent.putExtra("totalDiastolicReading", getTotalDiastolicReading(item.getUserId(), currentMonth));
+            intent.putExtra("totalUserReadings", getTotalUserReadings(item.getUserId(), currentMonth));
+
+            startActivity(intent);
 
         });
     }
+
+    private String getMonth(String date) {
+
+
+        try {
+            String[] dateParts = date.split("-");
+            String month = dateParts[1];
+
+            return month;
+
+        } catch (Exception e) {
+
+        }
+
+        return null;
+    }
+
+    private int getTotalUserReadings(String userID, String month) {
+        String currentDate = new SimpleDateFormat("yyyy-MMM-dd", Locale.getDefault()).format(new Date());
+        String currentMonth = getMonth(currentDate);
+        int total = 0;
+
+        for (int i = 0; i < itemList.size(); i++) {
+            if (itemList.get(i).getUserId().equals(userID)) {
+
+                if(month.equals(getMonth(itemList.get(i).getDateReading()))) {
+                    total += 1;
+                }
+            }
+        }
+
+        return total;
+    }
+
+    private double getTotalSystolicReading(String userID, String month) {
+        double total = 0.0;
+
+        for (int i = 0; i < itemList.size(); i++) {
+            if (itemList.get(i).getUserId().equals(userID)) {
+
+                if(month.equals(getMonth(itemList.get(i).getDateReading()))) {
+                    total += Double.parseDouble(itemList.get(i).getSystolicReading());
+                }
+            }
+        }
+        return total;
+    }
+
+    private double getTotalDiastolicReading(String userID, String month) {
+        double total = 0.0;
+
+
+        for (int i = 0; i < itemList.size(); i++) {
+
+            if (itemList.get(i).getUserId().equals(userID)) {
+                if(month.equals(getMonth(itemList.get(i).getDateReading()))) {
+                    total += Double.parseDouble(itemList.get(i).getDiastolicReading());
+                }
+            }
+        }
+        return total;
+    }
+
 
     private void addItem() {
         SimpleDateFormat dFormat = new SimpleDateFormat("dd/MMM/yyyy");
@@ -102,8 +190,6 @@ public class MainActivity extends AppCompatActivity {
         String time = tvTimeReading.getText().toString().trim();
         String sysRead = editSystolicReading.getText().toString().trim();
         String diaRead = editDiastolicReading.getText().toString().trim();
-        String condition = tvCondition.getText().toString().trim();
-
 
         if (TextUtils.isEmpty(userId)) {
             Toast.makeText(this, "You must enter a user ID.", Toast.LENGTH_LONG).show();
@@ -118,15 +204,25 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        if(Double.parseDouble(sysRead) >= 180 || Double.parseDouble(diaRead) >= 120) {
+            Toast.makeText(this, "WARNING YOU ARE FAT", Toast.LENGTH_LONG).show();
+        }
+
+
         String id = databaseBloodPressureTracker.push().getKey();
-        FormItems item = new FormItems(id,userId, date, time, sysRead, diaRead);
-        String conditionGen = item.getCond();
+        FormItems item = new FormItems(id, userId, date, time, sysRead, diaRead);
         Task setValueTask = databaseBloodPressureTracker.child(id).setValue(item);
 
         setValueTask.addOnSuccessListener(new OnSuccessListener() {
             @Override
             public void onSuccess(Object o) {
-                Toast.makeText(MainActivity.this, "item added", Toast.LENGTH_LONG).show();
+
+                if(Double.parseDouble(sysRead) >= 180 || Double.parseDouble(diaRead) >= 120) {
+                    Toast.makeText(MainActivity.this, "WARNING YOU ARE FAT", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "item added", Toast.LENGTH_LONG).show();
+
+                }
 
                 editUID.setText("");
                 tvDateReading.setText("");
@@ -165,9 +261,37 @@ public class MainActivity extends AppCompatActivity {
                     itemList.add(item);
                 }
 
-                ItemListAdapter adapter = new ItemListAdapter(MainActivity.this, itemList);
-                lvItems.setAdapter(adapter);
+                lvItems.setAdapter(new ItemListAdapter(MainActivity.this, itemList) {
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        View row = super.getView(position, convertView, parent);
+                        String condition = getItem(position).getCondition();
+
+                        if (condition.equals(Cond.CRISIS.label)) {
+                            row.setBackgroundColor(Color.parseColor("#ba2916"));
+
+                        } else if (condition.equals(Cond.STAGE2.label)) {
+                            row.setBackgroundColor(Color.parseColor("#c4593f"));
+
+                        } else if (condition.equals(Cond.STAGE1.label)) {
+                            row.setBackgroundColor(Color.parseColor("#eda18e"));
+
+                        } else if (condition.equals(Cond.ELEVATED.label)) {
+                            row.setBackgroundColor(Color.parseColor("#bceba9"));
+
+                        } else if (condition.equals(Cond.NORMAL.label)) {
+                            row.setBackgroundColor(Color.parseColor("#34ab05"));
+
+                        } else {
+                            row.setBackgroundColor(Color.WHITE);
+                        }
+
+                        return row;
+                    }
+                });
+
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -176,10 +300,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void updateForm(String id,String uid, String d, String t, String sys, String dia) {
+    private void updateForm(String id, String uid, String d, String t, String sys, String dia) {
         DatabaseReference dbRef = databaseBloodPressureTracker.child(id);
 
-        FormItems item = new FormItems(id, uid, d, t, sys,dia );
+        FormItems item = new FormItems(id, uid, d, t, sys, dia);
 
         Task setValueTask = dbRef.setValue(item);
 
@@ -284,7 +408,7 @@ public class MainActivity extends AppCompatActivity {
         setRemoveTask.addOnSuccessListener(new OnSuccessListener() {
             @Override
             public void onSuccess(Object o) {
-                Toast.makeText(MainActivity.this, "Form Deleted!",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Form Deleted!", Toast.LENGTH_LONG).show();
             }
         });
 

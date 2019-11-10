@@ -6,14 +6,13 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
     <EditText
         android:id="@+id/editUID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:autofillHints="@string/hintUid"
-        android:inputType="textCapWords" />
+        android:hint="@string/hintUser"
+         />
 
     <TextView
         android:id="@+id/date"
@@ -40,12 +39,6 @@
         android:ems="10"
         android:hint="@string/hintDR"
         android:inputType="numberDecimal" />
-
-    <TextView
-        android:id="@+id/condition"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
 
     <Button
         android:id="@+id/buttonAddRecord"
