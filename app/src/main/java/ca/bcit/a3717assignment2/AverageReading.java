@@ -21,17 +21,10 @@ public class AverageReading extends AppCompatActivity {
     Double diastolicReading;
     int totalReadings;
 
-    ListView lvItems;
-    List<FormItems> itemList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_average_reading);
-
-
-        DecimalFormat numberFormat = new DecimalFormat("#.00");
-
 
         date = (String) getIntent().getExtras().get("date");
         String user = (String) getIntent().getExtras().get("userID");
@@ -39,9 +32,6 @@ public class AverageReading extends AppCompatActivity {
         systolicReading = (double) getIntent().getExtras().get("totalSystolicReading");
         diastolicReading = (double) getIntent().getExtras().get("totalDiastolicReading");
         totalReadings = (int) getIntent().getExtras().get("totalUserReadings");
-
-        numberFormat.format(systolicReading);
-        numberFormat.format(diastolicReading);
 
         tvDate = findViewById(R.id.avgReading_date);
         tvDate.setText(String.valueOf(date));

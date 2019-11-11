@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     Button addRecord;
     ListView lvItems;
     List<FormItems> itemList;
-
     DatabaseReference databaseBloodPressureTracker;
 
 
@@ -111,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
 
             intent.putExtra("date", currentMonth);
             intent.putExtra("userID", item.getUserId());
-
             intent.putExtra("totalSystolicReading", getTotalSystolicReading(item.getUserId(), currentMonth));
             intent.putExtra("totalDiastolicReading", getTotalDiastolicReading(item.getUserId(), currentMonth));
             intent.putExtra("totalUserReadings", getTotalUserReadings(item.getUserId(), currentMonth));
@@ -138,14 +136,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private int getTotalUserReadings(String userID, String month) {
-        String currentDate = new SimpleDateFormat("yyyy-MMM-dd", Locale.getDefault()).format(new Date());
-        String currentMonth = getMonth(currentDate);
+
         int total = 0;
 
         for (int i = 0; i < itemList.size(); i++) {
             if (itemList.get(i).getUserId().equals(userID)) {
 
-                if(month.equals(getMonth(itemList.get(i).getDateReading()))) {
+                if (month.equals(getMonth(itemList.get(i).getDateReading()))) {
                     total += 1;
                 }
             }
@@ -160,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < itemList.size(); i++) {
             if (itemList.get(i).getUserId().equals(userID)) {
 
-                if(month.equals(getMonth(itemList.get(i).getDateReading()))) {
+                if (month.equals(getMonth(itemList.get(i).getDateReading()))) {
                     total += Double.parseDouble(itemList.get(i).getSystolicReading());
                 }
             }
@@ -175,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < itemList.size(); i++) {
 
             if (itemList.get(i).getUserId().equals(userID)) {
-                if(month.equals(getMonth(itemList.get(i).getDateReading()))) {
+                if (month.equals(getMonth(itemList.get(i).getDateReading()))) {
                     total += Double.parseDouble(itemList.get(i).getDiastolicReading());
                 }
             }
@@ -185,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void addItem() {
-        SimpleDateFormat dFormat = new SimpleDateFormat("dd/MMM/yyyy");
 
         String userId = editUID.getText().toString().trim();
         String date = tvDateReading.getText().toString().trim();
@@ -206,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if(Double.parseDouble(sysRead) >= 180 || Double.parseDouble(diaRead) >= 120) {
+        if (Double.parseDouble(sysRead) >= 180 || Double.parseDouble(diaRead) >= 120) {
             Toast.makeText(this, "WARNING YOU ARE FAT", Toast.LENGTH_LONG).show();
         }
 
@@ -219,10 +215,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Object o) {
 
-                if(Double.parseDouble(sysRead) >= 180 || Double.parseDouble(diaRead) >= 120) {
-//                    Toast.makeText(MainActivity.this, "WARNING YOU ARE FAT", Toast.LENGTH_LONG).show();
-                    Toast toast = new Toast (getApplicationContext());
-                    toast.setGravity(Gravity.CENTER,0,0);
+                if (Double.parseDouble(sysRead) >= 180 || Double.parseDouble(diaRead) >= 120) {
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setGravity(Gravity.CENTER, 0, 0);
 
                     TextView ttv = new TextView(MainActivity.this);
                     ttv.setBackgroundColor(Color.BLACK);
@@ -231,14 +226,13 @@ public class MainActivity extends AppCompatActivity {
 
                     Typeface t = Typeface.create("monospace", Typeface.BOLD);
                     ttv.setTypeface(t);
-                    ttv.setPadding(10,10,10,10);
+                    ttv.setPadding(10, 10, 10, 10);
                     ttv.setText("Consult Your Doctor Immediately");
                     toast.setView(ttv);
                     toast.show();
 
                 } else {
                     Toast.makeText(MainActivity.this, "Form added", Toast.LENGTH_LONG).show();
-
                 }
 
                 editUID.setText("");
