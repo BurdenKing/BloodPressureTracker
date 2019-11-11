@@ -3,9 +3,9 @@
     <string name="hintUser">User ID</string>
     <string name="btnAddForm">Add</string>
     <string name="btnDelete">Delete</string>
+    <string name="btnUpdate">Update</string>
     <string name="hintSR">Systolic Reading</string>
     <string name="hintDR">Diastolic Reading</string>
-
     <string name="avg_condition">Average Condition</string>
     <string name="avg_systolic">Systolic Readings</string>
     <string name="avg_diastolic">Diastolic Reading</string>

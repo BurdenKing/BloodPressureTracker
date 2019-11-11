@@ -5,8 +5,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -218,9 +220,24 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(Object o) {
 
                 if(Double.parseDouble(sysRead) >= 180 || Double.parseDouble(diaRead) >= 120) {
-                    Toast.makeText(MainActivity.this, "WARNING YOU ARE FAT", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(MainActivity.this, "WARNING YOU ARE FAT", Toast.LENGTH_LONG).show();
+                    Toast toast = new Toast (getApplicationContext());
+                    toast.setGravity(Gravity.CENTER,0,0);
+
+                    TextView ttv = new TextView(MainActivity.this);
+                    ttv.setBackgroundColor(Color.BLACK);
+                    ttv.setTextColor(Color.RED);
+                    ttv.setTextSize(25);
+
+                    Typeface t = Typeface.create("monospace", Typeface.BOLD);
+                    ttv.setTypeface(t);
+                    ttv.setPadding(10,10,10,10);
+                    ttv.setText("Consult Your Doctor Immediately");
+                    toast.setView(ttv);
+                    toast.show();
+
                 } else {
-                    Toast.makeText(MainActivity.this, "item added", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Form added", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -268,19 +285,19 @@ public class MainActivity extends AppCompatActivity {
                         String condition = getItem(position).getCondition();
 
                         if (condition.equals(Cond.CRISIS.label)) {
-                            row.setBackgroundColor(Color.parseColor("#ba2916"));
+                            row.setBackgroundColor(Color.parseColor("#BD3B1B"));
 
                         } else if (condition.equals(Cond.STAGE2.label)) {
-                            row.setBackgroundColor(Color.parseColor("#c4593f"));
+                            row.setBackgroundColor(Color.parseColor("#DBA800"));
 
                         } else if (condition.equals(Cond.STAGE1.label)) {
-                            row.setBackgroundColor(Color.parseColor("#eda18e"));
+                            row.setBackgroundColor(Color.parseColor("#B9D870"));
 
                         } else if (condition.equals(Cond.ELEVATED.label)) {
-                            row.setBackgroundColor(Color.parseColor("#bceba9"));
+                            row.setBackgroundColor(Color.parseColor("#B6C61A"));
 
                         } else if (condition.equals(Cond.NORMAL.label)) {
-                            row.setBackgroundColor(Color.parseColor("#34ab05"));
+                            row.setBackgroundColor(Color.parseColor("#006344"));
 
                         } else {
                             row.setBackgroundColor(Color.WHITE);

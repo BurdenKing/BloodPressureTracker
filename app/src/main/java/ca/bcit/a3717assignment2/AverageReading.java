@@ -1,6 +1,5 @@
 package ca.bcit.a3717assignment2;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -76,30 +75,29 @@ public class AverageReading extends AppCompatActivity {
         String condition = "";
 
         double sr = getAverageReading(systolicReading, totalReadings);
-        double dr = getAverageReading(diastolicReading, totalReadings);;
+        double dr = getAverageReading(diastolicReading, totalReadings);
 
         if (sr >= 180 || dr >= 120) {
             condition = Cond.CRISIS.label;
-            getWindow().getDecorView().setBackgroundColor(Color.parseColor("#ba2916"));
+            getWindow().getDecorView().setBackgroundColor(Color.parseColor("#BD3B1B"));
 
         } else if ((sr >= 140 && sr < 180) || dr >= 90) {
             condition = Cond.STAGE2.label;
-            getWindow().getDecorView().setBackgroundColor(Color.parseColor("#c4593f"));
+            getWindow().getDecorView().setBackgroundColor(Color.parseColor("#DBA800"));
 
         } else if ((sr >= 130 && sr <= 139) || (dr >= 80 && dr <= 89)) {
             condition = Cond.STAGE1.label;
-            getWindow().getDecorView().setBackgroundColor(Color.parseColor("#eda18e"));
+            getWindow().getDecorView().setBackgroundColor(Color.parseColor("#B9D870"));
 
         } else if ((sr >= 120 && sr <= 129) && dr < 80) {
             condition = Cond.ELEVATED.label;
-            getWindow().getDecorView().setBackgroundColor(Color.parseColor("#bceba9"));
+            getWindow().getDecorView().setBackgroundColor(Color.parseColor("#B6C61A"));
 
         } else if (sr < 120 && dr < 80) {
             condition = Cond.NORMAL.label;
-            getWindow().getDecorView().setBackgroundColor(Color.parseColor("#34ab05"));
+            getWindow().getDecorView().setBackgroundColor(Color.parseColor("#006344"));
 
         }
-
         return condition;
     }
 }

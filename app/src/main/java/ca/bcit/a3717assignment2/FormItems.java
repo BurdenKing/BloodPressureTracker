@@ -1,7 +1,8 @@
 package ca.bcit.a3717assignment2;
 
-import java.util.Date;
-
+/**
+ * Class contains all  items to add to store in the database.
+ */
 public class FormItems {
 
     private String id;
