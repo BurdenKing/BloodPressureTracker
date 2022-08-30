@@ -1,12 +1,9 @@
 An android app that tracks and analyze user's blood pressure.
 
 Lawrence Zheng 
-A00851121
-lawliet_zhc@hotmail.com
+
 
 Joe Fong (Joeco)
-A01054383
-joecofg@gmail.com
 
 
 100% Completed
